@@ -71,7 +71,7 @@ coverage.xml
 *.key
 
 # ───────────────────────────────
-# NODE (Bazı projelerde olabilir)
+# NODE
 # ───────────────────────────────
 node_modules/
 npm-debug.log*

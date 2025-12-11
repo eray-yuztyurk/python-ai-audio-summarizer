@@ -3,89 +3,101 @@
 import gradio as gr
 from transformers import pipeline
 import torch
+import numpy as np
+import soundfile as sf
 
-languages = [
-    "English - ENG",
-    "German - DEU",
-    "Turkish - TUR",
-    "French - FRA",
-    "Spanish - SPA",
-    "Italian - ITA",
-    "Portuguese - POR",
-    "Dutch - NLD",
-    "Swedish - SWE",
-    "Norwegian - NOR",
-    "Finnish - FIN",
-    "Russian - RUS",
-    "Arabic - ARA",
-    "Chinese - ZHO",
-    "Japanese - JPN",
-    "Korean - KOR",
-    "Hindi - HIN",
-    "Bengali - BEN",
-    "Vietnamese - VIE",
-    "Polish - POL",
-    "Ukrainian - UKR",
-    "Romanian - RON",
-    "Greek - ELL",
-    "Czech - CES",
-    "Slovak - SLK",
-    "Bulgarian - BUL",
-    "Hungarian - HUN",
-    "Serbian - SRP",
-    "Croatian - HRV",
-    "Hebrew - HEB",
-]
+# language mapping
+languages = {
+    "English": "eng",
+    "German": "ger",
+    "Turkish": "tur",
+    "Arabic": "arb",
+    "Bengali": "ben",
+    "Bulgarian": "bul",
+    "Chinese": "chn",
+    "Croatian": "hrv",
+    "Czech": "czh",
+    "Finnish": "fin",
+    "French": "fra",
+    "Greek": "grk",
+    "Hebrew": "heb",
+    "Hindi": "hin",
+    "Hungarian": "hun",
+    "Italian": "ita",
+    "Japanese": "jpn",
+    "Korean": "kor",
+    "Norwegian": "nor",
+    "Polish": "pol",
+    "Portuguese": "por",
+    "Romanian": "rom",
+    "Russian": "rus",
+    "Serbian": "srb",
+    "Slovak": "svk",
+    "Spanish": "spa",
+    "Swedish": "swe",
+    "Ukrainian": "ukr",
+    "Vietnamese": "vie"
+}
 
+# models in cache
+tts_models = {}
 
+# loader
+def load_tts_model(lang_code):
+    tts_pipe = pipeline(
+        "text-to-speech",
+        model=f"facebook/mms-tts-{lang_code}",
+    
+    )
+    
+    return tts_pipe
 
+# getting model
+def get_tts_model(lang_code):
+    if lang_code not in tts_models:
+        tts_models[lang_code] = load_tts_model(lang_code)
 
+    return tts_models[lang_code]
+
+# conversion to gradio audio format
 def convert_TTS_output(audio, sample_rate=16000):
 
-    # 1) float32 → int16
-    if audio.dtype != np.int16:
-        audio = np.clip(audio, -1.0, 1.0)   # taşmayı engelle
-        audio = (audio * 32767).astype(np.int16)
-
-    # 2) Mono değilse → Mono yap
-    if len(audio.shape) > 1:
-        audio = audio.mean(axis=1).astype(np.int16)
+    audio = np.squeeze(audio)
+    audio = np.clip(audio, -1, 1)
+    audio = (audio * 32767).astype(np.int16)
 
     return sample_rate, audio
 
+# conversion to audio
+def tts_converter(text_to_convert, lang="English"):
 
-def tts_converter(text_to_convert, lang="eng"):
+    lang_code = languages[lang]
 
-  lang_code = lang.split("-")[-1].strip().lower()
+    tts_pipe = get_tts_model(lang_code)
 
-  tts_pipe = pipeline(
-      "text-to-speech",
-      model=f"facebook/mms-tts-{lang_code}",
+    model_output = tts_pipe(text_to_convert)
 
-  )
+    sample_rate, final_audio = convert_TTS_output(model_output["audio"], model_output["sampling_rate"])
 
-  model_output = tts_pipe(text_to_convert)
+    print(type(sample_rate), len(final_audio))
 
-  sample_rate, final_audio = convert_TTS_output(model_output)
+    #with open("output.wav", "wb") as file:
+    #    file.write(model_output["audio"])
+    sf.write("output.wav",final_audio, sample_rate)
 
-  print(type(model_output["audio"]), len(model_output["audio"]))
-
-  with open("output.wav", "wb") as file:
-    file.write(model_output["audio"])
-
-  return (sample_rate, final_audio)
+    return (sample_rate, final_audio)
 
 _ui = gr.Interface(
     fn=tts_converter,
     inputs=[
-        gr.Textbox(label="Please paste your text here..."),
+        gr.Textbox(label="Please paste your text here...", lines=10, max_lines=40),
         gr.Dropdown(
-            languages,
+            list(languages.keys()),
             label="Language",
-            value="English - ENG"
+            value="English"
         )
     ],
-        outputs=gr.Audio(label="Converted Speech", type="filepath"),
+        outputs=gr.Audio(label="Converted Speech", type="numpy"),
         title="Convert Text to Speech"
 )
 
