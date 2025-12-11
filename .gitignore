@@ -1,0 +1,87 @@
+# ───────────────────────────────
+# OS / EDITOR
+# ───────────────────────────────
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# ───────────────────────────────
+# PYTHON
+# ───────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environments
+venv/
+env/
+.env/
+*.venv/
+
+# Distribution / packaging
+build/
+dist/
+develop-eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs
+*.log
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+pytest_cache/
+nosetests.xml
+coverage.xml
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# ───────────────────────────────
+# ENVIRONMENT / SECRETS
+# ───────────────────────────────
+.env
+.env.*
+*.env
+*.ini
+*.cfg
+*.json
+
+# Tokens / credentials
+*.pem
+*.key
+
+# ───────────────────────────────
+# NODE (Bazı projelerde olabilir)
+# ───────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ───────────────────────────────
+# GRADIO / TEMP FOLDERS
+# ───────────────────────────────
+gradio_cached_examples/
+gradio_cache/
+tmp/
+temp/
