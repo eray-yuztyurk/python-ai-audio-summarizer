@@ -1,5 +1,5 @@
 
-# Python AI Audio Summarizer
+# Python AI Audio Transcriber & Summarizer
 
 A professional, user-friendly tool for transcribing and summarizing audio files using AI models. Designed for developers, researchers, and anyone needing fast, accurate speech-to-text and summarization in multiple languages.
 
