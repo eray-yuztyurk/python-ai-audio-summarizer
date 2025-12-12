@@ -4,7 +4,11 @@
 A professional, user-friendly tool for transcribing and summarizing audio files using AI models. Designed for developers, researchers, and anyone needing fast, accurate speech-to-text and summarization in multiple languages.
 
 ---
+<p>
+<img width="1522" height="980" alt="audio_transcriber_summarizer" src="https://github.com/user-attachments/assets/30c19b12-cd9e-4ff2-a32e-92e1f1252506" />
+</p>
 
+---
 
 ## Table of Contents
 
