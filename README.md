@@ -1,8 +1,10 @@
+
 # Python AI Audio Summarizer
 
-A simple, professional, and easy-to-use tool for transcribing and summarizing audio files using AI models. This project is designed for developers, researchers, and anyone who needs to quickly convert speech to text and generate concise summaries in multiple languages.
+A professional, user-friendly tool for transcribing and summarizing audio files using AI models. Designed for developers, researchers, and anyone needing fast, accurate speech-to-text and summarization in multiple languages.
 
 ---
+
 
 ## Table of Contents
 
@@ -13,12 +15,12 @@ A simple, professional, and easy-to-use tool for transcribing and summarizing au
 - [Configuration](#configuration)
 - [Project Structure](#project-structure)
 - [Sample Audio Files](#sample-audio-files)
-- [Logging & Flagged Data](#logging--flagged-data)
 - [License](#license)
 - [Contributing](#contributing)
 - [Contact](#contact)
 
 ---
+
 
 ## Features
 
@@ -26,7 +28,7 @@ A simple, professional, and easy-to-use tool for transcribing and summarizing au
 - Summarize transcribed text automatically
 - Multi-language support
 - Easy configuration and extension
-- Logging of flagged or problematic files
+- Visual workflow diagram included
 
 ## Requirements
 
@@ -68,37 +70,40 @@ A simple, professional, and easy-to-use tool for transcribing and summarizing au
 - `config/ai_models.py`: Configure or add AI models for transcription and summarization.
 - `config/languages.py`: Manage supported languages.
 
+
 ## Project Structure
 
 ```
 python-ai-audio-summarizer/
-├── audio_transcriber.py      # Main script for audio transcription
-├── summarizer.py             # Main script for summarization
-├── requirements.txt          # Python dependencies
-├── config/                   # Configuration files
+├── audio_transcriber.py                # Main script for audio transcription
+├── summarizer.py                       # Main script for summarization
+├── requirements.txt                    # Python dependencies
+├── config/                             # Configuration files
 │   ├── ai_models.py
 │   └── languages.py
-├── flagged/                  # Log of flagged/problematic files
-│   └── log.csv
-├── sample_audio_files/       # Example audio files for testing
-└── LICENSE                   # Project license
+├── sample_audio_files/                 # Example audio files for testing
+│   └── meeting_sample_audio.mp3
+├── audio_transcriber_summarizer.png    # Visual workflow diagram
+├── LICENSE                             # Project license
+├── .gitignore                          # Git ignore rules
+└── venv/                               # Virtual environment (ignored by git)
 ```
+
 
 ## Sample Audio Files
 
 - Place your audio files in the `sample_audio_files/` directory for testing.
 
-## Logging & Flagged Data
-
-- Problematic or flagged files are logged in `flagged/log.csv` for review.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
+
 ## Contributing
 
 Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
+
 
 ## Contact
 
